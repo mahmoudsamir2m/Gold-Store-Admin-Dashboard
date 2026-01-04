@@ -1,22 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useForm, useFieldArray } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { FaArrowLeft, FaPlus, FaTrash } from "react-icons/fa";
 import { toast } from "sonner";
 import api from "../services/api";
 
-/* ================= Schema ================= */
-
-const privacySchema = z.object({
-  title: z.string().min(1, "العنوان مطلوب"),
-  list: z
-    .array(z.string().min(1, "النقطة مطلوبة"))
-    .min(1, "يجب إضافة نقطة واحدة على الأقل"),
-});
-
-type PrivacyForm = z.infer<typeof privacySchema>;
+type PrivacyForm = {
+  title: string;
+  list: string[];
+};
 
 /* ================= Component ================= */
 
@@ -31,7 +23,6 @@ const Privacy = () => {
     reset,
     formState: { errors },
   } = useForm<PrivacyForm>({
-    resolver: zodResolver(privacySchema),
     defaultValues: {
       title: "سياسة الخصوصية",
       list: ["نحن نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية."],
@@ -39,7 +30,7 @@ const Privacy = () => {
   });
 
   const { fields, append, remove } = useFieldArray({
-    control,
+    control: control as any,
     name: "list",
   });
 
@@ -184,7 +175,7 @@ const Privacy = () => {
 
                 <button
                   type="button"
-                  onClick={() => append("نقطة جديدة")}
+                  onClick={() => append("نقطة جديدة" as any)}
                   className="mt-3 inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:ring-yellow-500"
                 >
                   <FaPlus className="ml-2" />
