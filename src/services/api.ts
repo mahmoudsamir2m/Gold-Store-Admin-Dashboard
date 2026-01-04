@@ -2,35 +2,35 @@ import axios from "axios";
 import { useAuthStore } from "../store/authStore";
 
 const api = axios.create({
-  baseURL: "/api",
+  baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
-    "Content-Type": "application/json",
+    Accept: "application/json",
   },
+  withCredentials: true, // لو بتستخدم cookies
 });
 
 // Request interceptor to add auth token
 api.interceptors.request.use(
   (config) => {
     const token = useAuthStore.getState().token;
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    // Remove Content-Type for FormData to allow multipart/form-data
+
+    // Let browser set multipart/form-data boundary
     if (config.data instanceof FormData) {
       delete config.headers["Content-Type"];
     }
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Response interceptor to handle errors
+// Response interceptor
 api.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       useAuthStore.getState().logout();
