@@ -6,7 +6,6 @@ const api = axios.create({
   headers: {
     Accept: "application/json",
   },
-  withCredentials: true, // لو بتستخدم cookies
 });
 
 // Request interceptor to add auth token
