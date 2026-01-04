@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaVideo, FaUpload, FaPlay } from "react-icons/fa";
 import { toast } from "sonner";
-import api from "../services/api";
 import { useAuthStore } from "../store/authStore";
 
 interface VideoData {

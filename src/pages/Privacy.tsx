@@ -182,12 +182,6 @@ const Privacy = () => {
                   ))}
                 </div>
 
-                {errors.list?.message && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.list.message}
-                  </p>
-                )}
-
                 <button
                   type="button"
                   onClick={() => append("نقطة جديدة")}

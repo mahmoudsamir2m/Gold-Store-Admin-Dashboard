@@ -8,7 +8,6 @@ import {
   FaSignOutAlt,
   FaBars,
   FaClock,
-  FaShoppingCart,
   FaVideo,
 } from "react-icons/fa";
 import { useState, useEffect } from "react";
@@ -16,7 +15,7 @@ import { useAuthStore } from "../store/authStore";
 import api from "../services/api";
 
 const Dashboard = () => {
-  const { user, logout } = useAuthStore();
+  const { logout } = useAuthStore();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [stats, setStats] = useState({
