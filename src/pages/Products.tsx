@@ -30,6 +30,19 @@ interface Product {
 }
 
 const Products = () => {
+  const goldKarats = [
+    { value: "24", label: "24 عيار" },
+    { value: "22", label: "22 عيار" },
+    { value: "21", label: "21 عيار" },
+    { value: "18", label: "18 عيار" },
+  ];
+
+  const silverKarats = [
+    { value: "925", label: "925" },
+    { value: "900", label: "900" },
+    { value: "800", label: "800" },
+  ];
+
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,6 +58,23 @@ const Products = () => {
   const [maxPrice, setMaxPrice] = useState("");
   const [productType, setProductType] = useState("");
   const [city, setCity] = useState("");
+
+  const getAvailableKarats = () => {
+    if (metal === "gold") {
+      return goldKarats;
+    } else if (metal === "silver") {
+      return silverKarats;
+    } else {
+      return [...goldKarats, ...silverKarats];
+    }
+  };
+
+  useEffect(() => {
+    const availableKarats = getAvailableKarats();
+    if (karat && !availableKarats.some((k) => k.value === karat)) {
+      setKarat("");
+    }
+  }, [metal]);
 
   const fetchProducts = async (
     page = 1,
@@ -205,39 +235,48 @@ const Products = () => {
               <label className="block text-sm font-semibold text-gray-800">
                 المعدن
               </label>
-              <input
-                type="text"
+              <select
                 value={metal}
                 onChange={(e) => setMetal(e.target.value)}
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-200 bg-white"
-                placeholder="ذهب، فضة، إلخ..."
-              />
+              >
+                <option value="">جميع المعادن</option>
+                <option value="gold">ذهب</option>
+                <option value="silver">فضة</option>
+              </select>
             </div>
 
             <div className="space-y-2">
               <label className="block text-sm font-semibold text-gray-800">
                 الفئة
               </label>
-              <input
-                type="text"
+              <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-200 bg-white"
-                placeholder="مجوهرات، عملات، إلخ..."
-              />
+              >
+                <option value="">جميع الفئات</option>
+                <option value="jewelry">مجوهرات</option>
+                <option value="bullion">سبائك</option>
+              </select>
             </div>
 
             <div className="space-y-2">
               <label className="block text-sm font-semibold text-gray-800">
                 العيار
               </label>
-              <input
-                type="text"
+              <select
                 value={karat}
                 onChange={(e) => setKarat(e.target.value)}
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-200 bg-white"
-                placeholder="18k، 21k، إلخ..."
-              />
+              >
+                <option value="">جميع العيارات</option>
+                {getAvailableKarats().map((k) => (
+                  <option key={k.value} value={k.value}>
+                    {k.label}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="space-y-2">
