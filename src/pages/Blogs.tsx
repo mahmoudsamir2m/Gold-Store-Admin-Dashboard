@@ -224,6 +224,12 @@ const Blogs = () => {
       toast.error("يرجى إضافة على الأقل قسم واحد");
       return;
     }
+    for (const title of formData.titles) {
+      if (title.title.includes("\n")) {
+        toast.error("عنوان القسم يجب أن يكون في سطر واحد فقط");
+        return;
+      }
+    }
 
     setSubmitting(true);
     try {
