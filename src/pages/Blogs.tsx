@@ -195,6 +195,14 @@ const Blogs = () => {
     contentIndex: number,
     value: string
   ) => {
+    const title = formData.titles[titleIndex];
+    if (title.type === "header") {
+      const lineCount = (value.match(/\n/g) || []).length + 1;
+      if (lineCount > 2) {
+        toast.error("محتوى المقدمة يجب ألا يتجاوز سطرين");
+        return;
+      }
+    }
     setFormData((prev) => ({
       ...prev,
       titles: prev.titles.map((title, i) =>
@@ -228,6 +236,15 @@ const Blogs = () => {
       if (title.title.includes("\n")) {
         toast.error("عنوان القسم يجب أن يكون في سطر واحد فقط");
         return;
+      }
+      if (title.type === "header") {
+        for (const content of title.contents) {
+          const lineCount = (content.content.match(/\n/g) || []).length + 1;
+          if (lineCount > 2) {
+            toast.error("محتوى المقدمة يجب ألا يتجاوز سطرين");
+            return;
+          }
+        }
       }
     }
 
