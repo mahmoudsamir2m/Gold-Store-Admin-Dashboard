@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { FaCheck, FaTimes, FaSearch } from "react-icons/fa";
+import { FaCheck, FaTimes, FaSearch, FaArrowLeft } from "react-icons/fa";
 import { toast } from "sonner";
 import api from "../services/api";
+import { Link } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -124,9 +125,18 @@ const Products = () => {
 
   return (
     <div className="p-6">
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold gold-text mb-2">إدارة المنتجات</h2>
-        <p className="text-gray-400">عرض وإدارة جميع منتجات الذهب</p>
+      <div className="flex items-center justify-between">
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold gold-text mb-2">إدارة المنتجات</h2>
+          <p className="text-gray-400">عرض وإدارة جميع منتجات الذهب</p>
+        </div>
+        <Link
+          to="/"
+          className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md text-sm font-medium flex items-center"
+        >
+          <FaArrowLeft className="ml-2" />
+          العودة للرئيسية
+        </Link>
       </div>
 
       <>
