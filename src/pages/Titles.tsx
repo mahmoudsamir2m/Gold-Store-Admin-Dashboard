@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaSave, FaEdit, FaArrowLeft } from "react-icons/fa";
+import { FaSave, FaArrowLeft } from "react-icons/fa";
 import { toast } from "sonner";
 import api from "../services/api";
 import { Link } from "react-router-dom";
