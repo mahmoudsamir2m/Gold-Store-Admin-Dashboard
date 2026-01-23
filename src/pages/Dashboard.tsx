@@ -9,6 +9,7 @@ import {
   FaBars,
   FaClock,
   FaVideo,
+  FaFont,
 } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { useAuthStore } from "../store/authStore";
@@ -29,7 +30,8 @@ const Dashboard = () => {
   const navigation = [
     { name: "الرئيسية", href: "/", icon: FaHome },
     { name: "المستخدمين", href: "/users", icon: FaUsers },
-    { name: "المنتجات", href: "/products", icon: FaBox },
+    { name: "الاعلانات", href: "/products", icon: FaBox },
+    { name: "العناوين", href: "/titles", icon: FaFont },
     { name: "سياسة الخصوصية", href: "/privacy", icon: FaShieldAlt },
     { name: "المدونات", href: "/blogs", icon: FaBlog },
     { name: "الفيديوهات", href: "/videos", icon: FaVideo },
@@ -44,32 +46,39 @@ const Dashboard = () => {
       color: "from-yellow-400 to-yellow-600",
     },
     {
-      title: "إدارة المنتجات",
-      description: "عرض وإدارة المنتجات",
+      title: "إدارة الاعلانات",
+      description: "عرض وإدارة الاعلانات",
       href: "/products",
       icon: FaBox,
       color: "from-yellow-500 to-yellow-700",
+    },
+    {
+      title: "العناوين",
+      description: "تعديل عناوين التطبيق",
+      href: "/titles",
+      icon: FaFont,
+      color: "from-yellow-600 to-yellow-800",
     },
     {
       title: "سياسة الخصوصية",
       description: "تعديل سياسة الخصوصية",
       href: "/privacy",
       icon: FaShieldAlt,
-      color: "from-yellow-600 to-yellow-800",
+      color: "from-yellow-700 to-yellow-900",
     },
     {
       title: "المدونات",
       description: "إدارة المدونات",
       href: "/blogs",
       icon: FaBlog,
-      color: "from-yellow-700 to-yellow-900",
+      color: "from-yellow-800 to-yellow-950",
     },
     {
       title: "الفيديوهات",
       description: "إدارة الفيديوهات",
       href: "/videos",
       icon: FaVideo,
-      color: "from-yellow-800 to-yellow-950",
+      color: "from-yellow-900 to-yellow-950",
     },
   ];
 
@@ -114,7 +123,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-gray-300">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-gray-300 flex">
       {/* Sidebar */}
       <div
         className={`fixed inset-y-0 right-0 z-50 w-64 bg-gray-950/90 backdrop-blur-sm border-l border-gray-800 transform ${
@@ -167,7 +176,7 @@ const Dashboard = () => {
       </div>
 
       {/* Main content */}
-      <div className="lg:mr-64">
+      <div className="w-full ">
         {/* Top bar */}
         <div className="bg-gray-900 shadow-lg border-b border-gray-800">
           <div className="px-4 sm:px-6 lg:px-8">
@@ -243,7 +252,7 @@ const Dashboard = () => {
             <div className="glass-effect p-6 rounded-xl">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-400 text-sm">إجمالي المنتجات</p>
+                  <p className="text-gray-400 text-sm">إجمالي الاعلانات المعتمدة</p>
                   <p className="text-2xl font-bold text-yellow-400">
                     {stats.products.toLocaleString()}
                   </p>
@@ -254,7 +263,7 @@ const Dashboard = () => {
             <div className="glass-effect p-6 rounded-xl">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-400 text-sm">المنتجات المعلقة</p>
+                  <p className="text-gray-400 text-sm">الاعلانات المعلقة</p>
                   <p className="text-2xl font-bold text-yellow-400">
                     {stats.pendingProducts.toLocaleString()}
                   </p>

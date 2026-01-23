@@ -7,6 +7,7 @@ import Products from "./pages/Products";
 import Privacy from "./pages/Privacy";
 import Blogs from "./pages/Blogs";
 import Videos from "./pages/Videos";
+import Titles from "./pages/Titles";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -59,6 +60,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Videos />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/titles"
+          element={
+            <ProtectedRoute>
+              <Titles />
             </ProtectedRoute>
           }
         />

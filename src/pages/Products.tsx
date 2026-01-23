@@ -113,7 +113,7 @@ const Products = () => {
       setTotalPages(response.data.meta.last_page);
       setCurrentPage(page);
     } catch (error) {
-      toast.error("فشل في تحميل المنتجات");
+      toast.error("فشل في تحميل الاعلانات");
     } finally {
       setLoading(false);
     }
@@ -157,8 +157,8 @@ const Products = () => {
     <div className="p-6">
       <div className="flex items-center justify-between">
         <div className="mb-8">
-          <h2 className="text-3xl font-bold gold-text mb-2">إدارة المنتجات</h2>
-          <p className="text-gray-400">عرض وإدارة جميع منتجات الذهب</p>
+          <h2 className="text-3xl font-bold gold-text mb-2">إدارة الاعلانات</h2>
+          <p className="text-gray-400">عرض وإدارة جميع اعلانات الذهب</p>
         </div>
         <Link
           to="/"
@@ -213,7 +213,7 @@ const Products = () => {
               فلاتر البحث المتقدمة
             </h3>
             <div className="text-sm text-gray-600">
-              ابحث وصف المنتجات بسهولة
+              ابحث وصف الاعلانات بسهولة
             </div>
           </div>
 
