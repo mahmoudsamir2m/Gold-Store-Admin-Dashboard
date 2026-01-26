@@ -12,7 +12,6 @@ interface Product {
   product_type: string;
   karat: string;
   weight: string;
-  price: string;
   label: string;
   images: string[];
   description: string;
@@ -54,8 +53,6 @@ const Products = () => {
   const [metal, setMetal] = useState("");
   const [category, setCategory] = useState("");
   const [karat, setKarat] = useState("");
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
   const [productType, setProductType] = useState("");
   const [city, setCity] = useState("");
 
@@ -83,8 +80,6 @@ const Products = () => {
     currentMetal = metal,
     currentCategory = category,
     currentKarat = karat,
-    currentMinPrice = minPrice,
-    currentMaxPrice = maxPrice,
     currentProductType = productType,
     currentCity = city
   ) => {
@@ -102,8 +97,6 @@ const Products = () => {
       if (currentCategory)
         url += `&category=${encodeURIComponent(currentCategory)}`;
       if (currentKarat) url += `&karat=${encodeURIComponent(currentKarat)}`;
-      if (currentMinPrice) url += `&min_price=${currentMinPrice}`;
-      if (currentMaxPrice) url += `&max_price=${currentMaxPrice}`;
       if (currentProductType)
         url += `&product_type=${encodeURIComponent(currentProductType)}`;
       if (currentCity) url += `&city=${encodeURIComponent(currentCity)}`;
@@ -279,33 +272,6 @@ const Products = () => {
               </select>
             </div>
 
-            <div className="space-y-2">
-              <label className="block text-sm font-semibold text-gray-800">
-                السعر الأدنى
-              </label>
-              <input
-                type="number"
-                value={minPrice}
-                onChange={(e) => setMinPrice(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-200 bg-white"
-                placeholder="0"
-                min="0"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="block text-sm font-semibold text-gray-800">
-                السعر الأعلى
-              </label>
-              <input
-                type="number"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-200 bg-white"
-                placeholder="10000"
-                min="0"
-              />
-            </div>
 
             <div className="space-y-2">
               <label className="block text-sm font-semibold text-gray-800">
@@ -346,8 +312,6 @@ const Products = () => {
                   metal,
                   category,
                   karat,
-                  minPrice,
-                  maxPrice,
                   productType,
                   city
                 );
@@ -397,9 +361,6 @@ const Products = () => {
                   </p>
                   <p>
                     <strong>الوزن:</strong> {product.weight} جرام
-                  </p>
-                  <p>
-                    <strong>السعر:</strong> {product.price} {product.label}
                   </p>
                   <p>
                     <strong>المدينة:</strong> {product.city}

@@ -8,6 +8,7 @@ import Privacy from "./pages/Privacy";
 import Blogs from "./pages/Blogs";
 import Videos from "./pages/Videos";
 import Titles from "./pages/Titles";
+import Links from "./pages/Links";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -68,6 +69,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Titles />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/links"
+          element={
+            <ProtectedRoute>
+              <Links />
             </ProtectedRoute>
           }
         />

@@ -10,6 +10,7 @@ import {
   FaClock,
   FaVideo,
   FaFont,
+  FaLink,
 } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { useAuthStore } from "../store/authStore";
@@ -32,6 +33,7 @@ const Dashboard = () => {
     { name: "المستخدمين", href: "/users", icon: FaUsers },
     { name: "الاعلانات", href: "/products", icon: FaBox },
     { name: "العناوين", href: "/titles", icon: FaFont },
+    { name: "اللينكات", href: "/links", icon: FaLink },
     { name: "سياسة الخصوصية", href: "/privacy", icon: FaShieldAlt },
     { name: "المدونات", href: "/blogs", icon: FaBlog },
     { name: "الفيديوهات", href: "/videos", icon: FaVideo },
@@ -60,11 +62,18 @@ const Dashboard = () => {
       color: "from-yellow-600 to-yellow-800",
     },
     {
+      title: "اللينكات",
+      description: "إدارة اللينكات الخارجية",
+      href: "/links",
+      icon: FaLink,
+      color: "from-yellow-700 to-yellow-900",
+    },
+    {
       title: "سياسة الخصوصية",
       description: "تعديل سياسة الخصوصية",
       href: "/privacy",
       icon: FaShieldAlt,
-      color: "from-yellow-700 to-yellow-900",
+      color: "from-yellow-800 to-yellow-950",
     },
     {
       title: "المدونات",
@@ -252,7 +261,9 @@ const Dashboard = () => {
             <div className="glass-effect p-6 rounded-xl">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-400 text-sm">إجمالي الاعلانات المعتمدة</p>
+                  <p className="text-gray-400 text-sm">
+                    إجمالي الاعلانات المعتمدة
+                  </p>
                   <p className="text-2xl font-bold text-yellow-400">
                     {stats.products.toLocaleString()}
                   </p>
