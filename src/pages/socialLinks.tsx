@@ -25,7 +25,7 @@ interface LinkItem {
   updated_at: string;
 }
 
-const Links = () => {
+const SocialLinks = () => {
   const [links, setLinks] = useState<LinkItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -58,32 +58,32 @@ const Links = () => {
     fetchLinks();
   }, []);
 
- const onSubmit = async (data: LinkFormData) => {
-   setSubmitting(true);
-   const payload = { ...data, type: "other" as const };
-   try {
-     if (editingLink) {
-       await api.put(`/outside-links/${editingLink.id}`, payload);
-       toast.success("تم تحديث اللينك بنجاح");
-     } else {
-       await api.post("/outside-links", payload);
-       toast.success("تم إضافة اللينك بنجاح");
-     }
-     setModalOpen(false);
-     setEditingLink(null);
-     reset();
-     fetchLinks();
-   } catch (error: any) {
-     console.error("Error saving link:", error);
-     if (error.response?.data?.message) {
-       toast.error(error.response.data.message);
-     } else {
-       toast.error("فشل في حفظ اللينك");
-     }
-   } finally {
-     setSubmitting(false);
-   }
- };
+  const onSubmit = async (data: LinkFormData) => {
+    setSubmitting(true);
+    const payload = { ...data, type: "social" as const };
+    try {
+      if (editingLink) {
+        await api.put(`/outside-links/${editingLink.id}`, payload);
+        toast.success("تم تحديث اللينك بنجاح");
+      } else {
+        await api.post("/outside-links", payload);
+        toast.success("تم إضافة اللينك بنجاح");
+      }
+      setModalOpen(false);
+      setEditingLink(null);
+      reset();
+      fetchLinks();
+    } catch (error: any) {
+      console.error("Error saving link:", error);
+      if (error.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("فشل في حفظ اللينك");
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const handleEdit = (link: LinkItem) => {
     setEditingLink(link);
@@ -106,6 +106,13 @@ const Links = () => {
   };
 
   const openAddModal = () => {
+    const socialLinksCount = links.filter(
+      (link) => link.type === "social",
+    ).length;
+    if (socialLinksCount >= 5) {
+      toast.error("لا يمكن إضافة أكثر من 5 لينكات تواصل اجتماعي");
+      return;
+    }
     setEditingLink(null);
     reset();
     setModalOpen(true);
@@ -125,9 +132,11 @@ const Links = () => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold gold-text mb-2">
-              إدارة اللينكات
+              إدارة اللينكات التواصل الاجتماعي
             </h1>
-            <p className="text-gray-400">إضافة وتعديل وحذف اللينكات الخارجية</p>
+            <p className="text-gray-400">
+              إضافة وتعديل وحذف اللينكات التواصل الاجتماعي
+            </p>
           </div>
           <button
             onClick={openAddModal}
@@ -139,46 +148,47 @@ const Links = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {links.map((link) => (
-            link.type !== "other" ? null :
-            <div
-              key={link.id}
-              className="glass-effect p-6 rounded-xl hover:shadow-2xl transition-all duration-300"
-            >
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-yellow-500/20 rounded-lg flex items-center justify-center">
-                    <FaLink className="h-5 w-5 text-yellow-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-white">{link.name}</h3>
-                  </div>
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => handleEdit(link)}
-                    className="p-2 text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 rounded-lg transition-colors"
-                  >
-                    <FaEdit className="h-4 w-4" />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(link.id)}
-                    className="p-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors"
-                  >
-                    <FaTrash className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-              <a
-                href={link.value}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-yellow-400 hover:text-yellow-300 text-sm break-all"
+          {links.map((link) =>
+            link.type !== "social" ? null : (
+              <div
+                key={link.id}
+                className="glass-effect p-6 rounded-xl hover:shadow-2xl transition-all duration-300"
               >
-                {link.value}
-              </a>
-            </div>
-          ))}
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-yellow-500/20 rounded-lg flex items-center justify-center">
+                      <FaLink className="h-5 w-5 text-yellow-400" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-white">{link.name}</h3>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleEdit(link)}
+                      className="p-2 text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 rounded-lg transition-colors"
+                    >
+                      <FaEdit className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(link.id)}
+                      className="p-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors"
+                    >
+                      <FaTrash className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+                <a
+                  href={link.value}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-yellow-400 hover:text-yellow-300 text-sm break-all"
+                >
+                  {link.value}
+                </a>
+              </div>
+            ),
+          )}
         </div>
 
         {links.length === 0 && (
@@ -263,4 +273,4 @@ const Links = () => {
   );
 };
 
-export default Links;
+export default SocialLinks;

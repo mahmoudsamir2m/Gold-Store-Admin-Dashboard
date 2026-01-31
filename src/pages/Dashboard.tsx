@@ -11,6 +11,7 @@ import {
   FaVideo,
   FaFont,
   FaLink,
+  FaShareAlt,
 } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { useAuthStore } from "../store/authStore";
@@ -34,6 +35,11 @@ const Dashboard = () => {
     { name: "الاعلانات", href: "/products", icon: FaBox },
     { name: "العناوين", href: "/titles", icon: FaFont },
     { name: "اللينكات", href: "/links", icon: FaLink },
+    {
+      name: "لينكات التواصل الاجتماعي",
+      href: "/social-links",
+      icon: FaShareAlt,
+    },
     { name: "سياسة الخصوصية", href: "/privacy", icon: FaShieldAlt },
     { name: "المدونات", href: "/blogs", icon: FaBlog },
     { name: "الفيديوهات", href: "/videos", icon: FaVideo },
@@ -67,6 +73,13 @@ const Dashboard = () => {
       href: "/links",
       icon: FaLink,
       color: "from-yellow-700 to-yellow-900",
+    },
+    {
+      title: "لينكات التواصل الاجتماعي",
+      description: "إدارة اللينكات التواصل الاجتماعي",
+      href: "/social-links",
+      icon: FaShareAlt,
+      color: "from-yellow-800 to-yellow-950",
     },
     {
       title: "سياسة الخصوصية",

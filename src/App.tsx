@@ -9,6 +9,7 @@ import Blogs from "./pages/Blogs";
 import Videos from "./pages/Videos";
 import Titles from "./pages/Titles";
 import Links from "./pages/Links";
+import SocialLinks from "./pages/socialLinks";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -77,6 +78,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Links />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/social-links"
+          element={
+            <ProtectedRoute>
+              <SocialLinks />
             </ProtectedRoute>
           }
         />
